@@ -33,7 +33,7 @@ namespace Mission.Entities.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "EmailAddress", "FirstName", "LastName", "Password", "PhoneNumber", "UserImage", "UserType" },
-                values: new object[] { 1, "admin@tatvasoft.com", "Yogesh", "Sondagar", "admin", "01234567890", null, "admin" });
+                values: new object[] { 1, "admin@tatvasoft.com", "Admin", "Tatva", "admin", "01234567890", null, "admin" });
         }
 
         /// <inheritdoc />
