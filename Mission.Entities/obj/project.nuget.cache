@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oM+oNqfDgbk=",
+  "dgSpecHash": "/SNxNlfiecw=",
   "success": true,
-  "projectFilePath": "D:\\Visual Studio 2022\\Mission_5\\Mission\\Mission.Entities\\Mission.Entities.csproj",
+  "projectFilePath": "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Entities\\Mission.Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yogi\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.15\\microsoft.entityframeworkcore.8.0.15.nupkg.sha512",
     "C:\\Users\\yogi\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.15\\microsoft.entityframeworkcore.abstractions.8.0.15.nupkg.sha512",

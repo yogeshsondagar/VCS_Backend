@@ -958,11 +958,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio 2022\\Mission_5\\Mission\\Mission.Services\\Mission.Services.csproj",
+      "projectUniqueName": "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Services\\Mission.Services.csproj",
       "projectName": "Mission.Services",
-      "projectPath": "D:\\Visual Studio 2022\\Mission_5\\Mission\\Mission.Services\\Mission.Services.csproj",
+      "projectPath": "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Services\\Mission.Services.csproj",
       "packagesPath": "C:\\Users\\yogi\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio 2022\\Mission_5\\Mission\\Mission.Services\\obj\\",
+      "outputPath": "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Services\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -983,8 +983,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\Visual Studio 2022\\Mission_5\\Mission\\Mission.Repositories\\Mission.Repositories.csproj": {
-              "projectPath": "D:\\Visual Studio 2022\\Mission_5\\Mission\\Mission.Repositories\\Mission.Repositories.csproj"
+            "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Repositories\\Mission.Repositories.csproj": {
+              "projectPath": "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Repositories\\Mission.Repositories.csproj"
             }
           }
         }
