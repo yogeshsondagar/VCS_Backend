@@ -1,4 +1,4 @@
-using Mission.Entities.ViewModels.MissionSkill;
+﻿using Mission.Entities.Models;
 using Mission.Entities.ViewModels.MissionTheme;
 using Mission.Repositories.IRepository;
 using Mission.Services.IService;
@@ -8,31 +8,41 @@ namespace Mission.Services.Service
     public class MissionThemeService(IMissionThemeRepository missionThemeRepository) : IMissionThemeService
     {
         private readonly IMissionThemeRepository _missionThemeRepository = missionThemeRepository;
-
-        public async Task AddMissionThemeAsync(UpsertMissionThemeRequestModel model)
+        public Task<bool> AddMissionTheme(MissionThemeViewModel model)
         {
-            await _missionThemeRepository.AddMissionThemeAsync(model);
-            return;
+            var missionTheme = new MissionTheme()
+            {
+                Id = model.Id,
+                Status = model.Status,
+                ThemeName = model.ThemeName,
+            };
+            return _missionThemeRepository.AddMissionTheme(missionTheme);
         }
 
-        public async Task<bool> DeleteMissionTheme(int id)
+        public Task<bool> DeleteMissionTheme(int missionThemeId)
         {
-            return await _missionThemeRepository.DeleteMissionTheme(id);
+            return _missionThemeRepository.DeleteMissionTheme(missionThemeId);
         }
 
-        public async Task<MissionThemeResponseModel?> GetMissionThemeByIdAsync(int missionThemeId)
+        public Task<List<MissionThemeViewModel>> GetAllMissionTheme()
         {
-            return await _missionThemeRepository.GetMissionThemeByIdAsync(missionThemeId);
+            return _missionThemeRepository.GetAllMissionTheme();
         }
 
-        public async Task<List<MissionThemeResponseModel>> GetMissionThemeListAsync()
+        public Task<MissionThemeViewModel?> GetMissionThemeById(int missionThemeId)
         {
-            return await _missionThemeRepository.GetMissionThemeListAsync();
+            return _missionThemeRepository.GetMissionThemeById(missionThemeId);
         }
 
-        public async Task<bool> UpdateMissionThemeAsync(UpsertMissionThemeRequestModel model)
+        public Task<bool> UpdateMissionTheme(MissionThemeViewModel model)
         {
-            return await _missionThemeRepository.UpdateMissionThemeAsync(model);
+            var missionTheme = new MissionTheme()
+            {
+                Id = model.Id,
+                Status = model.Status,
+                ThemeName = model.ThemeName,
+            };
+            return _missionThemeRepository.UpdateMissionTheme(missionTheme);
         }
     }
 }

@@ -7,6 +7,7 @@ using Mission.Repositories.IRepository;
 using Mission.Repositories.Repository;
 using Mission.Services.IService;
 using Mission.Services.Service;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,6 +54,12 @@ builder.Services.AddScoped<IMissionSkillService, MissionSkillService>();
 builder.Services.AddScoped<IMissionThemeRepository, MissionThemeRepository>();
 builder.Services.AddScoped<IMissionThemeService, MissionThemeService>();
 
+builder.Services.AddScoped<ICommonRepository, CommonRepository>();
+builder.Services.AddScoped<ICommonService, CommonService>();
+
+builder.Services.AddScoped<IMissionRepository, MissionRepository>();
+builder.Services.AddScoped<IMissionService, MissionService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,6 +72,13 @@ if (app.Environment.IsDevelopment())
 app.UseCors("MyPolicy");
 
 app.UseAuthorization();
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "UploadMissionImage")),
+    RequestPath = "/UploadMissionImage"
+});
 
 app.MapControllers();
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "idjpJgLQYIE=",
+  "dgSpecHash": "hJue5R0qlQY=",
   "success": true,
-  "projectFilePath": "D:\\Visual Studio 2022\\Mission_6\\Mission\\Mission.Api\\Mission.Api.csproj",
+  "projectFilePath": "D:\\Visual Studio 2022\\Mission_7_1\\Mission\\Mission.Api\\Mission.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yogi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\yogi\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\8.0.15\\microsoft.aspnetcore.authentication.jwtbearer.8.0.15.nupkg.sha512",

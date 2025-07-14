@@ -1,8 +1,14 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Mission.Api"
+    "\\Mission.Api",
+    "\\Mission.Api\\Controllers",
+    "\\Mission.Entities",
+    "\\Mission.Entities\\Models",
+    "\\Mission.Entities\\ViewModels",
+    "\\Mission.Entities\\ViewModels\\Login",
+    "\\Mission.Entities\\ViewModels\\Mission",
+    "\\Mission.Services"
   ],
-  "SelectedNode": "\\Mission.Api\\bin\\Debug\\net8.0\\appsettings.Development.json",
   "PreviewInSolutionExplorer": false
 }

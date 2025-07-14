@@ -1,17 +1,17 @@
-using Mission.Entities.ViewModels.MissionSkill;
-using Mission.Entities.ViewModels.MissionTheme;
+﻿using Mission.Entities.ViewModels.MissionTheme;
 
 namespace Mission.Services.IService
 {
     public interface IMissionThemeService
     {
-        Task AddMissionThemeAsync(UpsertMissionThemeRequestModel model);
+        Task<List<MissionThemeViewModel>> GetAllMissionTheme();
 
-        Task<List<MissionThemeResponseModel>> GetMissionThemeListAsync();
+        Task<MissionThemeViewModel?> GetMissionThemeById(int missionThemeId);
 
-        Task<MissionThemeResponseModel?> GetMissionThemeByIdAsync(int missionThemeId);
-        Task<bool> UpdateMissionThemeAsync(UpsertMissionThemeRequestModel model);
+        Task<bool> AddMissionTheme(MissionThemeViewModel model);
 
-        Task<bool> DeleteMissionTheme(int id);
+        Task<bool> UpdateMissionTheme(MissionThemeViewModel model);
+
+        Task<bool> DeleteMissionTheme(int missionThemeId);
     }
 }

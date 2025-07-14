@@ -1,71 +1,70 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Mission.Entities;
 using Mission.Entities.Models;
-using Mission.Entities.ViewModels.MissionSkill;
 using Mission.Entities.ViewModels.MissionTheme;
 using Mission.Repositories.IRepository;
-using System.Threading.Tasks;
 
 namespace Mission.Repositories.Repository
 {
-    public class MissionThemeRepository(MissionDbContext dbContext) : IMissionThemeRepository
+    public class MissionThemeRepository(MissionDbContext missionDbContext) : IMissionThemeRepository
     {
-        private readonly MissionDbContext _dbContext = dbContext;
+        private readonly MissionDbContext _missionDbContext = missionDbContext;
 
-        public async Task AddMissionThemeAsync(UpsertMissionThemeRequestModel model)
+        public async Task<bool> AddMissionTheme(MissionTheme missionTheme)
         {
-            var missionTheme = new MissionTheme()
-            {
-                themeName = model.themeName,
-                Status = model.Status,
-            };
-
-            _dbContext.MissionThemes.Add(missionTheme);
-
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<MissionThemeResponseModel>> GetMissionThemeListAsync()
-        {
-            var query = _dbContext.MissionThemes.Select(m => new MissionThemeResponseModel(m)).AsQueryable();
-
-            return await query.ToListAsync();
-        }
-
-        public async Task<MissionThemeResponseModel?> GetMissionThemeByIdAsync(int missionThemeId)
-        {
-            var missionTheme = await _dbContext.MissionThemes.FindAsync(missionThemeId);
-
-            if (missionTheme == null)
-                return null;
-
-            return new MissionThemeResponseModel(missionTheme);
-        }
-
-        public async Task<bool> UpdateMissionThemeAsync(UpsertMissionThemeRequestModel model)
-        {
-            var missionTheme = _dbContext.MissionThemes.Find(model.Id);
-
-            if (missionTheme == null)
-                return false;
-
-            missionTheme.themeName = model.themeName;
-            missionTheme.Status = model.Status;
-
-            _dbContext.MissionThemes.Update(missionTheme);
-            await _dbContext.SaveChangesAsync();
+            _missionDbContext.MissionThemes.Add(missionTheme);
+            await _missionDbContext.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> DeleteMissionTheme(int id)
+        public async Task<bool> DeleteMissionTheme(int missionThemeId)
         {
-            var missionTheme = _dbContext.MissionThemes.Find(id);
+            var missionThemeExistingInDb = await _missionDbContext.MissionThemes.FindAsync(missionThemeId);
 
-            if (missionTheme == null)
+            if (missionThemeExistingInDb == null)
                 return false;
 
-            _dbContext.MissionThemes.Remove(missionTheme);
-            await _dbContext.SaveChangesAsync();
+            _missionDbContext.Remove(missionThemeExistingInDb);
+            await _missionDbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public Task<List<MissionThemeViewModel>> GetAllMissionTheme()
+        {
+            return _missionDbContext.MissionThemes
+                .Select(m => new MissionThemeViewModel()
+                {
+                    Id = m.Id,
+                    Status = m.Status,
+                    ThemeName = m.ThemeName,
+                })
+                .ToListAsync();
+        }
+
+        public Task<MissionThemeViewModel?> GetMissionThemeById(int missionThemeId)
+        {
+            return _missionDbContext.MissionThemes
+                .Where(m => m.Id == missionThemeId)
+                .Select(m => new MissionThemeViewModel()
+                {
+                    Id = m.Id,
+                    Status = m.Status,
+                    ThemeName = m.ThemeName,
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> UpdateMissionTheme(MissionTheme missionTheme)
+        {
+            var missionThemeExistingInDb = await _missionDbContext.MissionThemes.FindAsync(missionTheme.Id);
+
+            if (missionThemeExistingInDb == null)
+                return false;
+
+            missionThemeExistingInDb.ThemeName = missionTheme.ThemeName;
+            missionThemeExistingInDb.Status = missionTheme.Status;
+            await _missionDbContext.SaveChangesAsync();
+
             return true;
         }
     }

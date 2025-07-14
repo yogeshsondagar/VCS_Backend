@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Mission.Entities.Models
 {
@@ -11,7 +6,7 @@ namespace Mission.Entities.Models
     {
         [Key]
         public int Id { get; set; }
-        public string themeName { get; set; }
+        public string ThemeName { get; set; }
         public string Status { get; set; }
     }
 }

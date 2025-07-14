@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
-using Mission.Entities.ViewModels;
+﻿using Microsoft.AspNetCore.Mvc;
 using Mission.Entities.ViewModels.MissionTheme;
+using Mission.Entities.ViewModels;
 using Mission.Services.IService;
 
 namespace Mission.Api.Controllers
@@ -11,89 +11,70 @@ namespace Mission.Api.Controllers
     {
         private readonly IMissionThemeService _missionThemeService = missionThemeService;
 
-        [HttpPost]
-        [Route("AddMissionTheme")]
-        public async Task<IActionResult> AddMissionTheme(UpsertMissionThemeRequestModel model)
-        {
-            await _missionThemeService.AddMissionThemeAsync(model);
-
-            var result = new ResponseResult() { Result = ResponseStatus.Success, Message = "New Mission Theme Added Sucessfully" };
-
-            return Ok(result);
-        }
-
         [HttpGet]
         [Route("GetMissionThemeList")]
-        public async Task<IActionResult> GetMissionThemeList()
+        public async Task<IActionResult> GetAllMissionTheme()
         {
-            var response = await _missionThemeService.GetMissionThemeListAsync();
+            try
+            {
+                var res = await _missionThemeService.GetAllMissionTheme();
+                return Ok(new ResponseResult() { Data = res, Result = ResponseStatus.Success, Message = "" });
+            }
+            catch
+            {
+                return BadRequest(new ResponseResult() { Data = null, Result = ResponseStatus.Error, Message = "Failed to get mission theme" });
+            }
+        }
 
-            var result = new ResponseResult() { Data = response, Result = ResponseStatus.Success };
-
-            return Ok(result);
+        [HttpPost]
+        [Route("AddMissionTheme")]
+        public async Task<IActionResult> AddMissionTheme(MissionThemeViewModel missionThemeViewModel)
+        {
+            try
+            {
+                var res = await _missionThemeService.AddMissionTheme(missionThemeViewModel);
+                return Ok(new ResponseResult() { Data = "Add Mission theme.", Result = ResponseStatus.Success, Message = "" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ResponseResult() { Data = null, Result = ResponseStatus.Error, Message = "Failed to add mission theme" });
+            }
         }
 
         [HttpGet]
         [Route("GetMissionThemeById/{id:int}")]
         public async Task<IActionResult> GetMissionThemeById(int id)
         {
-            var response = await _missionThemeService.GetMissionThemeByIdAsync(id);
+            var res = await _missionThemeService.GetMissionThemeById(id);
 
-            var result = new ResponseResult();
+            if (res == null)
+                return NotFound(new ResponseResult() { Data = "Not Found", Result = ResponseStatus.Error, Message = "" });
 
-            if (response == null)
-            {
-                result.Result = ResponseStatus.Error;
-                result.Message = "Mission Theme Record Not Found";
-                return NotFound(result);
-            }
-
-            result.Result = ResponseStatus.Success;
-            result.Data = response;
-
-            return Ok(result);
+            return Ok(new ResponseResult() { Data = res, Result = ResponseStatus.Success, Message = "" });
         }
 
         [HttpPost]
         [Route("UpdateMissionTheme")]
-        public async Task<IActionResult> UpdateMissionTheme(UpsertMissionThemeRequestModel model)
+        public async Task<IActionResult> UpdateMissionTheme(MissionThemeViewModel missionThemeViewModel)
         {
-            var response = await _missionThemeService.UpdateMissionThemeAsync(model);
+            var res = await _missionThemeService.UpdateMissionTheme(missionThemeViewModel);
 
-            var result = new ResponseResult();
+            if (!res)
+                return NotFound(new ResponseResult() { Data = "Not Found", Result = ResponseStatus.Error, Message = "" });
 
-            if (response)
-            {
-                result.Result = ResponseStatus.Success;
-                return Ok(result);
-            }
-            else
-            {
-                result.Result = ResponseStatus.Error;
-                result.Message = "Mission Theme Record Not Found";
-                return NotFound(result);
-            }
+            return Ok(new ResponseResult() { Data = res, Result = ResponseStatus.Success, Message = "" });
         }
 
         [HttpDelete]
-        [Route("DeleteMissionTheme/{id:int}")]
+        [Route("DeleteMissionTheme{id:int}")]
         public async Task<IActionResult> DeleteMissionTheme(int id)
         {
-            var response = await _missionThemeService.DeleteMissionTheme(id);
+            var res = await _missionThemeService.DeleteMissionTheme(id);
 
-            var result = new ResponseResult();
+            if (!res)
+                return NotFound(new ResponseResult() { Data = "Not Found", Result = ResponseStatus.Error, Message = "" });
 
-            if (response)
-            {
-                result.Result = ResponseStatus.Success;
-                return Ok(result);
-            }
-            else
-            {
-                result.Result = ResponseStatus.Error;
-                result.Message = "Mission Theme Record Not Found";
-                return NotFound(result);
-            }
+            return Ok(new ResponseResult() { Data = res, Result = ResponseStatus.Success, Message = "Record Delete Successfully" });
         }
     }
 }
